@@ -1,0 +1,5 @@
+group,profile,prompt,fa,ckv,dckv,nmax,t,td,warm,tps,tokens,accept,ctx_fill,layers,vram_total_mib,vram_free_mib,vram_model_mib,vram_kv_mib,vram_compute_mib,ram_model_mib
+Qwen3.6-35B-A3B,no-mtp-q4km-baseline,s,on,q8_0,?,0,8,?,cold,22.5,50,-,0%,-,16302,15037,,,,
+Qwen3.6-35B-A3B,no-mtp-q4km-baseline,s,on,q8_0,?,0,8,?,warm,22.6,50,-,100%,-,16302,15037,,,,
+Qwen3.6-35B-A3B,no-mtp-q4km-baseline,l,on,q8_0,?,0,8,?,cold,22.2,256,-,100%,-,16302,15037,,,,
+Qwen3.6-35B-A3B,no-mtp-q4km-baseline,l,on,q8_0,?,0,8,?,warm,22.1,256,-,100%,-,16302,15037,,,,

@@ -1,0 +1,82 @@
+{
+    "_notes": {
+        "about": "Each group = model family. Add/edit profiles per group. JSON5-like comments allowed.",
+        "args_hint": "Full arg list passed to llama-server. Include -m, --fit, -fa, -t, --spec-type, etc.",
+        "gemma4_hint": "Gemma4 MTP uses shared KV cache (is_mem_shared=true), O(d) lower overhead than standard MTP.",
+        "27B_hint": "Dense model = larger MTP speedup (1.4-2x vs MoE's 1.15-1.25x). Higher n_max may help."
+    },
+    "groups": [
+        {
+            "name": "Qwen3.6-35B-A3B",
+            "_note": "MoE: 3B active / 35B total. Lower MTP gain than dense. Sweet spot n_max=2-4.",
+            "profiles": [
+                {
+                    "name": "no-mtp-q4km-baseline",
+                    "args": ["-m", "C:\\Users\\hippo\\.cache\\huggingface\\hub\\Qwen3.6-35B-A3B-UD-Q4_K_M.gguf", "--fit", "on", "--fit-ctx", "128000", "--fit-target", "256", "-np", "1", "-fa", "on", "--no-mmap", "--mlock", "-ctk", "q8_0", "-ctv", "q8_0", "--temp", "0.1", "--top-p", "0.95", "--top-k", "20", "--min-p", "0.0", "--presence-penalty", "0.0", "--repeat-penalty", "1.0", "--host", "0.0.0.0", "--port", "8033", "--api-key", "llama", "-t", "8", "--cpu-mask", "0xFF"]
+                },
+                {
+                    "name": "mtp-iq4xs-n2-q8kv",
+                    "args": ["-m", "C:\\Users\\hippo\\.cache\\huggingface\\hub\\models--unsloth--Qwen3.6-35B-A3B-MTP-GGUF\\snapshots\\5bc3e238d916f48a861bac2f8a1990a0e9b7e98d\\Qwen3.6-35B-A3B-UD-IQ4_XS.gguf", "--fit", "on", "--fit-ctx", "128000", "--fit-target", "256", "-np", "1", "-fa", "on", "--no-mmap", "--mlock", "-ctk", "q8_0", "-ctv", "q8_0", "--spec-type", "draft-mtp", "--spec-draft-type-k", "q8_0", "--spec-draft-type-v", "q8_0", "--spec-draft-n-max", "2", "--temp", "0.1", "--top-p", "0.95", "--top-k", "20", "--min-p", "0.0", "--presence-penalty", "0.0", "--repeat-penalty", "1.0", "--host", "0.0.0.0", "--port", "8033", "--api-key", "llama", "-t", "8", "--cpu-mask", "0xFF", "-td", "8", "--spec-draft-threads", "8", "--spec-draft-cpu-mask", "0xFF"]
+                },
+                {
+                    "name": "mtp-iq4xs-n4-q8kv",
+                    "args": ["-m", "C:\\Users\\hippo\\.cache\\huggingface\\hub\\models--unsloth--Qwen3.6-35B-A3B-MTP-GGUF\\snapshots\\5bc3e238d916f48a861bac2f8a1990a0e9b7e98d\\Qwen3.6-35B-A3B-UD-IQ4_XS.gguf", "--fit", "on", "--fit-ctx", "128000", "--fit-target", "256", "-np", "1", "-fa", "on", "--no-mmap", "--mlock", "-ctk", "q8_0", "-ctv", "q8_0", "--spec-type", "draft-mtp", "--spec-draft-type-k", "q8_0", "--spec-draft-type-v", "q8_0", "--spec-draft-n-max", "4", "--temp", "0.1", "--top-p", "0.95", "--top-k", "20", "--min-p", "0.0", "--presence-penalty", "0.0", "--repeat-penalty", "1.0", "--host", "0.0.0.0", "--port", "8033", "--api-key", "llama", "-t", "8", "--cpu-mask", "0xFF", "-td", "8", "--spec-draft-threads", "8", "--spec-draft-cpu-mask", "0xFF"]
+                },
+                {
+                    "name": "mtp-iq4xs-n4-q4kv",
+                    "args": ["-m", "C:\\Users\\hippo\\.cache\\huggingface\\hub\\models--unsloth--Qwen3.6-35B-A3B-MTP-GGUF\\snapshots\\5bc3e238d916f48a861bac2f8a1990a0e9b7e98d\\Qwen3.6-35B-A3B-UD-IQ4_XS.gguf", "--fit", "on", "--fit-ctx", "128000", "--fit-target", "256", "-np", "1", "-fa", "on", "--no-mmap", "--mlock", "-ctk", "q4_0", "-ctv", "q4_0", "--spec-type", "draft-mtp", "--spec-draft-type-k", "q4_0", "--spec-draft-type-v", "q4_0", "--spec-draft-n-max", "4", "--temp", "0.1", "--top-p", "0.95", "--top-k", "20", "--min-p", "0.0", "--presence-penalty", "0.0", "--repeat-penalty", "1.0", "--host", "0.0.0.0", "--port", "8033", "--api-key", "llama", "-t", "8", "--cpu-mask", "0xFF", "-td", "8", "--spec-draft-threads", "8", "--spec-draft-cpu-mask", "0xFF"]
+                },
+                {
+                    "name": "mtp-iq4xs-n4-t8td4",
+                    "args": ["-m", "C:\\Users\\hippo\\.cache\\huggingface\\hub\\models--unsloth--Qwen3.6-35B-A3B-MTP-GGUF\\snapshots\\5bc3e238d916f48a861bac2f8a1990a0e9b7e98d\\Qwen3.6-35B-A3B-UD-IQ4_XS.gguf", "--fit", "on", "--fit-ctx", "128000", "--fit-target", "256", "-np", "1", "-fa", "on", "--no-mmap", "--mlock", "-ctk", "q8_0", "-ctv", "q8_0", "--spec-type", "draft-mtp", "--spec-draft-type-k", "q8_0", "--spec-draft-type-v", "q8_0", "--spec-draft-n-max", "4", "--temp", "0.1", "--top-p", "0.95", "--top-k", "20", "--min-p", "0.0", "--presence-penalty", "0.0", "--repeat-penalty", "1.0", "--host", "0.0.0.0", "--port", "8033", "--api-key", "llama", "-t", "8", "--cpu-mask", "0xFF", "-td", "4", "--spec-draft-threads", "4", "--spec-draft-cpu-mask", "0xFF"]
+                }
+            ]
+        },
+        {
+            "name": "Qwen3.6-27B",
+            "_note": "Dense model. MTP gives 1.4-2x speedup. Higher n_max (3-6) may work well.",
+            "profiles": [
+                {
+                    "name": "no-mtp-baseline",
+                    "args": ["-m", "<PATH_TO_Qwen3.6-27B-GGUF>", "--fit", "on", "--fit-ctx", "128000", "--fit-target", "256", "-np", "1", "-fa", "on", "--no-mmap", "--mlock", "-ctk", "q8_0", "-ctv", "q8_0", "--temp", "0.1", "--top-p", "0.95", "--top-k", "20", "--min-p", "0.0", "--presence-penalty", "0.0", "--repeat-penalty", "1.0", "--host", "0.0.0.0", "--port", "8033", "--api-key", "llama", "-t", "8", "--cpu-mask", "0xFF"]
+                },
+                {
+                    "name": "mtp-q4km-n4",
+                    "args": ["-m", "<PATH_TO_Qwen3.6-27B-MTP-GGUF>", "--fit", "on", "--fit-ctx", "128000", "--fit-target", "256", "-np", "1", "-fa", "on", "--no-mmap", "--mlock", "-ctk", "q8_0", "-ctv", "q8_0", "--spec-type", "draft-mtp", "--spec-draft-type-k", "q8_0", "--spec-draft-type-v", "q8_0", "--spec-draft-n-max", "4", "--temp", "0.1", "--top-p", "0.95", "--top-k", "20", "--min-p", "0.0", "--presence-penalty", "0.0", "--repeat-penalty", "1.0", "--host", "0.0.0.0", "--port", "8033", "--api-key", "llama", "-t", "8", "--cpu-mask", "0xFF", "-td", "8", "--spec-draft-threads", "8", "--spec-draft-cpu-mask", "0xFF"]
+                },
+                {
+                    "name": "mtp-q4km-n6",
+                    "args": ["-m", "<PATH_TO_Qwen3.6-27B-MTP-GGUF>", "--fit", "on", "--fit-ctx", "128000", "--fit-target", "256", "-np", "1", "-fa", "on", "--no-mmap", "--mlock", "-ctk", "q8_0", "-ctv", "q8_0", "--spec-type", "draft-mtp", "--spec-draft-type-k", "q8_0", "--spec-draft-type-v", "q8_0", "--spec-draft-n-max", "6", "--temp", "0.1", "--top-p", "0.95", "--top-k", "20", "--min-p", "0.0", "--presence-penalty", "0.0", "--repeat-penalty", "1.0", "--host", "0.0.0.0", "--port", "8033", "--api-key", "llama", "-t", "8", "--cpu-mask", "0xFF", "-td", "8", "--spec-draft-threads", "8", "--spec-draft-cpu-mask", "0xFF"]
+                }
+            ]
+        },
+        {
+            "name": "Gemma4-27B",
+            "_note": "Gemma4 MTP uses shared KV cache (is_mem_shared=true). Less VRAM overhead than Qwen MTP.",
+            "profiles": [
+                {
+                    "name": "no-mtp-baseline",
+                    "args": ["-m", "<PATH_TO_GEMMA4-27B-GGUF>", "--fit", "on", "--fit-ctx", "128000", "--fit-target", "256", "-np", "1", "-fa", "on", "--no-mmap", "--mlock", "-ctk", "q8_0", "-ctv", "q8_0", "--temp", "0.1", "--top-p", "0.95", "--top-k", "20", "--min-p", "0.0", "--presence-penalty", "0.0", "--repeat-penalty", "1.0", "--host", "0.0.0.0", "--port", "8033", "--api-key", "llama", "-t", "8", "--cpu-mask", "0xFF"]
+                },
+                {
+                    "name": "mtp-sharedkv-n4",
+                    "args": ["-m", "<PATH_TO_GEMMA4-27B-MTP-GGUF>", "--fit", "on", "--fit-ctx", "128000", "--fit-target", "256", "-np", "1", "-fa", "on", "--no-mmap", "--mlock", "-ctk", "q8_0", "-ctv", "q8_0", "--spec-type", "draft-mtp", "--spec-draft-type-k", "q8_0", "--spec-draft-type-v", "q8_0", "--spec-draft-n-max", "4", "--temp", "0.1", "--top-p", "0.95", "--top-k", "20", "--min-p", "0.0", "--presence-penalty", "0.0", "--repeat-penalty", "1.0", "--host", "0.0.0.0", "--port", "8033", "--api-key", "llama", "-t", "8", "--cpu-mask", "0xFF", "-td", "8", "--spec-draft-threads", "8", "--spec-draft-cpu-mask", "0xFF"]
+                }
+            ]
+        },
+        {
+            "name": "Gemma4-9B",
+            "_note": "Smaller Gemma4. Fits better in VRAM; can try aggressive n_max.",
+            "profiles": [
+                {
+                    "name": "no-mtp-baseline",
+                    "args": ["-m", "<PATH_TO_GEMMA4-9B-GGUF>", "--fit", "on", "--fit-ctx", "128000", "--fit-target", "256", "-np", "1", "-fa", "on", "--no-mmap", "--mlock", "-ctk", "q8_0", "-ctv", "q8_0", "--temp", "0.1", "--top-p", "0.95", "--top-k", "20", "--min-p", "0.0", "--presence-penalty", "0.0", "--repeat-penalty", "1.0", "--host", "0.0.0.0", "--port", "8033", "--api-key", "llama", "-t", "8", "--cpu-mask", "0xFF"]
+                },
+                {
+                    "name": "mtp-sharedkv-n6",
+                    "args": ["-m", "<PATH_TO_GEMMA4-9B-MTP-GGUF>", "--fit", "on", "--fit-ctx", "128000", "--fit-target", "256", "-np", "1", "-fa", "on", "--no-mmap", "--mlock", "-ctk", "q8_0", "-ctv", "q8_0", "--spec-type", "draft-mtp", "--spec-draft-type-k", "q8_0", "--spec-draft-type-v", "q8_0", "--spec-draft-n-max", "6", "--temp", "0.1", "--top-p", "0.95", "--top-k", "20", "--min-p", "0.0", "--presence-penalty", "0.0", "--repeat-penalty", "1.0", "--host", "0.0.0.0", "--port", "8033", "--api-key", "llama", "-t", "8", "--cpu-mask", "0xFF", "-td", "8", "--spec-draft-threads", "8", "--spec-draft-cpu-mask", "0xFF"]
+                }
+            ]
+        }
+    ]
+}
